@@ -6,6 +6,11 @@ export async function generateStaticParams() {
   try {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
     const res = await fetch(`${API_URL}/agenda`, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      throw new Error("Response is not JSON");
+    }
     const items = await res.json();
     if (!Array.isArray(items) || items.length === 0) return fallback;
     return [

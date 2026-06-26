@@ -6,8 +6,15 @@ export async function generateStaticParams() {
   try {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
     const resSD = await fetch(`${API_URL}/guru?unit=sd`, { cache: 'no-store' });
+    if (!resSD.ok) throw new Error(`HTTP error! status: ${resSD.status}`);
+    const ctSD = resSD.headers.get("content-type");
+    if (!ctSD || !ctSD.includes("application/json")) throw new Error("Response is not JSON");
     const sdItems = await resSD.json();
+    
     const resSMP = await fetch(`${API_URL}/guru?unit=smp`, { cache: 'no-store' });
+    if (!resSMP.ok) throw new Error(`HTTP error! status: ${resSMP.status}`);
+    const ctSMP = resSMP.headers.get("content-type");
+    if (!ctSMP || !ctSMP.includes("application/json")) throw new Error("Response is not JSON");
     const smpItems = await resSMP.json();
     
     const items = [
