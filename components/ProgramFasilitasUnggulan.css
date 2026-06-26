@@ -1,0 +1,433 @@
+/* ==========================================================================
+   CSS untuk Komponen Program & Fasilitas Unggulan (Masonry Grid)
+   PENTING: Hanya menggunakan palet warna Tosca baru:
+   - --color-1: #0B6B69; (Warna utama/gelap)
+   - --color-2: #0FA8A4;
+   - --color-3: #2FCFC9; (Aksen tombol/hover)
+   - --color-4: #7EE6E3;
+   - --color-5: #C8F7F5;
+   - --color-6: #FFFFFF;
+   ========================================================================== */
+
+/* Container Utama */
+.program-fasilitas-section {
+  background-color: #C8F7F5; /* Menggunakan --color-5 */
+  padding: 80px 0;
+  width: 100%;
+}
+
+.program-fasilitas-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Header Komponen (Teks di Kiri, Tombol 'Lihat Semua' di Kanan) */
+.program-fasilitas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+/* Judul Utama */
+.program-fasilitas-title {
+  color: #0B6B69; /* Menggunakan --color-1 */
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Tombol Lihat Semua */
+.program-fasilitas-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background-color: #2FCFC9; /* Menggunakan --color-3 */
+  color: #0B6B69; /* Menggunakan --color-1 */
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  border: 2px solid #2FCFC9;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Hover Effect pada Tombol (Mengubah warna dengan warna palet #2FCFC9) */
+.program-fasilitas-btn:hover {
+  background-color: #0FA8A4; /* Menggunakan --color-2 */
+  color: #FFFFFF; /* Menggunakan --color-6 */
+  border-color: #0FA8A4;
+  transform: translateY(-2px);
+}
+
+/* Layout Grid Masonry Dinamis (menggunakan minmax(280px, 1fr) sesuai instruksi) */
+.program-fasilitas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-flow: dense;
+  grid-auto-rows: 120px;
+  gap: 15px; /* Sesuai instruksi gap: 15px */
+}
+
+/* Item Grid (Foto / Kartu) */
+.masonry-item,
+.outing-class-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  overflow: hidden;
+  /* Latar belakang semi-transparan (Glassmorphism) */
+  background-color: rgba(255, 255, 255, 0.4); /* Putih dengan transparansi 40% */
+  backdrop-filter: blur(10px); /* Efek kaca buram */
+  -webkit-backdrop-filter: blur(10px);
+  /* Border tipis putih semi-transparan untuk mempertegas kesan kaca */
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  /* Shadow luar yang lembut berbasis warna --color-1 */
+  box-shadow: 0 8px 32px 0 rgba(11, 107, 105, 0.15); 
+  /* Transisi halus all 0.5s cubic-bezier(0.4, 0, 0.2, 1) sesuai instruksi */
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  backface-visibility: hidden; /* Mencegah bergetar saat animasi */
+  -webkit-backface-visibility: hidden;
+}
+
+/* Row Spans untuk Variasi Layout Masonry */
+.masonry-item.portrait {
+  grid-row: span 4; /* Tinggi sekitar 525px */
+}
+
+.masonry-item.landscape {
+  grid-row: span 2; /* Tinggi sekitar 255px */
+}
+
+.masonry-item.square {
+  grid-row: span 3; /* Tinggi sekitar 390px */
+}
+
+/* Efek Hover Lift & Deeper Shadow 3D (Sesuai instruksi) */
+.masonry-item:hover,
+.outing-class-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(11, 107, 105, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Pembungkus Gambar */
+.masonry-image-wrapper {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Gambar di dalam Masonry */
+.masonry-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* Transisi halus all 0.5s cubic-bezier(0.4, 0, 0.2, 1) sesuai instruksi */
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efek Zoom In Halus pada Gambar saat di-hover (Sesuai instruksi) */
+.masonry-item:hover .masonry-image,
+.outing-class-card:hover .masonry-image {
+  transform: scale(1.05);
+}
+
+/* Konten Teks Kartu (Mengikuti posisi konten di dalam kartu, bukan menutupi layar) */
+.masonry-content {
+  position: relative; /* Diubah ke relative sesuai instruksi */
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.4); /* Menyatu dengan glassmorphism kartu */
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  z-index: 10;
+  
+  /* Animasi visual halus saat hover */
+  opacity: 0.85;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.masonry-item:hover .masonry-content,
+.outing-class-card:hover .masonry-content {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.65); /* Sedikit lebih terang saat di-hover */
+}
+
+/* Badge untuk Jenis Program/Fasilitas (Background Teal Cerah dengan teks Teal Gelap) */
+.masonry-badge {
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 12px;
+  background-color: #2FCFC9; /* Teal Cerah --color-3 */
+  color: #0B6B69; /* Teal Gelap --color-1 */
+  border-radius: 9999px;
+  margin-bottom: 4px;
+}
+
+/* Judul Card (Warna konsisten di default & hover: Teal Gelap) */
+.masonry-name {
+  color: #0B6B69; /* Teal Gelap --color-1 */
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Deskripsi Card (Warna konsisten di default & hover: Teal Gelap) */
+.masonry-desc {
+  color: #0B6B69; /* Teal Gelap --color-1 */
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Dibatasi 2 baris agar muat di grid */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: 0.85; /* Sedikit redup untuk hierarki tetapi tetap Teal Gelap */
+}
+
+/* Ikon Expand di pojok kanan atas */
+.masonry-expand-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #0B6B69; /* Teal Gelap */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+  opacity: 0.8;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.masonry-item:hover .masonry-expand-icon,
+.outing-class-card:hover .masonry-expand-icon {
+  opacity: 1;
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 12px rgba(11, 107, 105, 0.1);
+}
+
+/* Fallback Card saat gambar gagal atau tidak ada */
+.masonry-fallback-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+  background-color: #FFFFFF; /* Menggunakan --color-6 */
+  border: 2px dashed #2FCFC9; /* Menggunakan --color-3 */
+  border-radius: 24px;
+  box-sizing: border-box;
+}
+
+.masonry-fallback-title {
+  color: #0B6B69; /* Menggunakan --color-1 */
+  font-weight: 800;
+  font-size: 16px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.masonry-fallback-desc {
+  color: #0FA8A4; /* Menggunakan --color-2 */
+  font-size: 12px;
+}
+
+/* Fullscreen Lightbox Backdrop */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85); /* Solid dark background without full-screen blur */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  cursor: zoom-out;
+}
+
+/* Container Gambar Lightbox */
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(11, 107, 105, 0.3); /* Shadow berbasis --color-1 */
+  border: 2px solid #2FCFC9; /* Menggunakan --color-3 */
+  background-color: #0B6B69; /* Menggunakan --color-1 */
+  z-index: 10005;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gambar Lightbox */
+.lightbox-img {
+  display: block;
+  max-width: 90vw;
+  max-height: 70vh; /* Sisakan ruang agar caption tidak melebihi tinggi layar modal */
+  margin: auto;
+  object-fit: contain;
+  z-index: 10010; /* Lebih tinggi dari overlay z-index 9999 */
+  position: relative;
+}
+
+/* Bagian Keterangan Lightbox */
+.lightbox-caption {
+  padding: 16px 24px;
+  background-color: #0B6B69; /* Menggunakan --color-1 */
+  border-top: 1px solid #0FA8A4; /* Menggunakan --color-2 */
+  text-align: center;
+}
+
+.lightbox-title {
+  color: #FFFFFF; /* Menggunakan --color-6 */
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.lightbox-desc {
+  color: #C8F7F5; /* Menggunakan --color-5 */
+  font-size: 12px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  font-weight: 500;
+}
+
+/* Tombol Tutup Lightbox */
+.lightbox-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background-color: rgba(0, 0, 0, 0.5); /* Background gelap transparan */
+  border: 1.5px solid #FFFFFF; /* Border putih solid */
+  color: #FFFFFF; /* Warna X putih solid */
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10020; /* z-index tertinggi agar di atas gambar */
+}
+
+.lightbox-close-btn:hover {
+  background-color: #FFFFFF;
+  color: #0B6B69;
+  transform: scale(1.1);
+}
+
+/* Responsif Mobile & Tablet */
+@media (max-width: 768px) {
+  .program-fasilitas-section {
+    padding: 40px 0;
+  }
+
+  .program-fasilitas-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .program-fasilitas-title {
+    font-size: 24px;
+  }
+  
+  .program-fasilitas-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+  
+  .masonry-item.portrait,
+  .masonry-item.landscape,
+  .masonry-item.square {
+    grid-row: auto;
+    height: 320px;
+  }
+}
+
+/* ==========================================================================
+   Dedicated styling for .outing-class-card (Glassmorphism & 3D Depth)
+   ========================================================================== */
+.outing-class-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 8px 32px 0 rgba(11, 107, 105, 0.15) !important;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.outing-class-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 40px rgba(11, 107, 105, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Konsistensi Teks & Keterbacaan */
+.outing-class-card .card-title,
+.outing-class-card h3,
+.outing-class-card .title,
+.outing-class-card .masonry-name {
+  color: #0B6B69 !important; /* Teal Gelap */
+  font-weight: 900;
+}
+
+.outing-class-card .card-desc,
+.outing-class-card p,
+.outing-class-card .desc,
+.outing-class-card .masonry-desc {
+  color: #0B6B69 !important; /* Teal Gelap */
+  opacity: 0.85;
+}
+
+.outing-class-card .badge-unggulan,
+.outing-class-card .badge,
+.outing-class-card .masonry-badge {
+  background-color: #2FCFC9 !important; /* Teal Cerah */
+  color: #0B6B69 !important; /* Teal Gelap */
+}

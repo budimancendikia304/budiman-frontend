@@ -1,0 +1,382 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* Dynamic theme variables based on school unit class on body */
+.theme-sd {
+  /* Unified Color Palette - Bright and Energetic Tosca */
+  --bg-utama: #C8F7F5;
+  --border-halus: #7EE6E3;
+  --warna-sorotan: #2FCFC9;
+  --bg-tombol-utama: #0FA8A4;
+  --warna-teks-mutlak: #0B6B69;
+
+  /* Compatibility Mapping with Original Tailwind Configuration */
+  --bg-komponen: #FFFFFF;
+  --bg-kartu-komponen: #FFFFFF;
+  --bg-lapisan-dimensi: #C8F7F5;
+  --bg-aksen-kokoh: linear-gradient(135deg, #0FA8A4 0%, #0B6B69 100%);
+  --warna-teks-utama: var(--warna-teks-mutlak);
+  --warna-teks-redup: rgba(11, 107, 105, 0.6);
+  --warna-aksen: var(--warna-sorotan);
+  --warna-fade-sambutan: #C8F7F5;
+  --warna-fade-sambutan-90: rgba(200, 247, 245, 0.9);
+  
+  /* Helper Variables */
+  --warna-nav-hover: #C8F7F5;
+  --warna-teks-tombol-kontras: #0B6B69;
+  --bg-nav-dropdown: #0B6B69;
+  --bg-nav-login-btn: #063A38;
+  --bg-nav-login-btn-hover: #042524;
+}
+
+.theme-smp {
+  /* Unified Color Palette - Bright and Energetic Tosca */
+  --bg-utama: #C8F7F5;
+  --border-halus: #7EE6E3;
+  --warna-sorotan: #2FCFC9;
+  --bg-tombol-utama: #0FA8A4;
+  --warna-teks-mutlak: #0B6B69;
+
+  /* Compatibility Mapping with Original Tailwind Configuration */
+  --bg-komponen: #FFFFFF;
+  --bg-kartu-komponen: #FFFFFF;
+  --bg-lapisan-dimensi: #C8F7F5;
+  --bg-aksen-kokoh: linear-gradient(135deg, #0FA8A4 0%, #0B6B69 100%);
+  --warna-teks-utama: var(--warna-teks-mutlak);
+  --warna-teks-redup: rgba(11, 107, 105, 0.6);
+  --warna-aksen: var(--warna-sorotan);
+  --warna-fade-sambutan: #C8F7F5;
+  --warna-fade-sambutan-90: rgba(200, 247, 245, 0.9);
+  
+  /* Helper Variables */
+  --warna-nav-hover: #C8F7F5;
+  --warna-teks-tombol-kontras: #0B6B69;
+  --bg-nav-dropdown: #0B6B69;
+  --bg-nav-login-btn: #063A38;
+  --bg-nav-login-btn-hover: #042524;
+}
+
+@theme inline {
+  --color-bg-utama: var(--bg-utama);
+  --color-border-halus: var(--border-halus);
+  --color-warna-sorotan: var(--warna-sorotan);
+  --color-bg-tombol-utama: var(--bg-tombol-utama);
+  --color-warna-teks-mutlak: var(--warna-teks-mutlak);
+  --color-bg-kartu-komponen: var(--bg-kartu-komponen);
+  --color-bg-lapisan-dimensi: var(--bg-lapisan-dimensi);
+  --color-bg-aksen-kokoh: var(--bg-aksen-kokoh);
+  --color-warna-fade-sambutan: var(--warna-fade-sambutan);
+
+  --color-bg-komponen: var(--bg-komponen);
+  --color-warna-teks-utama: var(--warna-teks-utama);
+  --color-warna-teks-redup: var(--warna-teks-redup);
+  --color-warna-aksen: var(--warna-aksen);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --color-white: var(--bg-komponen);
+
+  --color-tosca-50: var(--bg-utama);
+  --color-tosca-200: var(--warna-aksen);
+  --color-tosca-500: var(--warna-aksen);
+  --color-tosca-700: var(--warna-teks-utama);
+  --color-tosca-900: var(--warna-teks-utama);
+
+  /* Force standard gray/slate/zinc/neutral to map to dynamic variable palette */
+  --color-gray-50: var(--bg-komponen);
+  --color-gray-100: var(--bg-utama);
+  --color-gray-200: var(--bg-utama);
+  --color-gray-300: var(--warna-aksen);
+  --color-gray-400: var(--warna-teks-redup);
+  --color-gray-500: var(--warna-teks-redup);
+  --color-gray-600: var(--warna-teks-utama);
+  --color-gray-700: var(--warna-teks-utama);
+  --color-gray-800: var(--warna-teks-utama);
+  --color-gray-900: var(--warna-teks-utama);
+
+  --color-slate-50: var(--bg-komponen);
+  --color-slate-100: var(--bg-utama);
+  --color-slate-200: var(--bg-utama);
+  --color-slate-300: var(--warna-aksen);
+  --color-slate-400: var(--warna-teks-redup);
+  --color-slate-500: var(--warna-teks-redup);
+  --color-slate-600: var(--warna-teks-utama);
+  --color-slate-700: var(--warna-teks-utama);
+  --color-slate-800: var(--warna-teks-utama);
+  --color-slate-900: var(--warna-teks-utama);
+
+  --color-zinc-50: var(--bg-komponen);
+  --color-zinc-100: var(--bg-utama);
+  --color-zinc-200: var(--bg-utama);
+  --color-zinc-300: var(--warna-aksen);
+  --color-zinc-400: var(--warna-teks-redup);
+  --color-zinc-500: var(--warna-teks-redup);
+  --color-zinc-600: var(--warna-teks-utama);
+  --color-zinc-700: var(--warna-teks-utama);
+  --color-zinc-800: var(--warna-teks-utama);
+  --color-zinc-900: var(--warna-teks-utama);
+
+  --color-neutral-50: var(--bg-komponen);
+  --color-neutral-100: var(--bg-utama);
+  --color-neutral-200: var(--bg-utama);
+  --color-neutral-300: var(--warna-aksen);
+  --color-neutral-400: var(--warna-teks-redup);
+  --color-neutral-500: var(--warna-teks-redup);
+  --color-neutral-600: var(--warna-teks-utama);
+  --color-neutral-700: var(--warna-teks-utama);
+  --color-neutral-800: var(--warna-teks-utama);
+  --color-neutral-900: var(--warna-teks-utama);
+
+  /* Force blue to map to dynamic variable palette */
+  --color-blue-50: var(--bg-utama);
+  --color-blue-100: var(--bg-utama);
+  --color-blue-200: var(--warna-aksen);
+  --color-blue-300: var(--warna-aksen);
+  --color-blue-400: var(--warna-aksen);
+  --color-blue-500: var(--warna-aksen);
+  --color-blue-600: var(--warna-teks-utama);
+  --color-blue-700: var(--warna-teks-utama);
+  --color-blue-800: var(--warna-teks-utama);
+  --color-blue-900: var(--warna-teks-utama);
+
+  /* Force other colors to map to dynamic variable palette */
+  --color-red-50: var(--bg-utama);
+  --color-red-100: var(--bg-utama);
+  --color-red-200: var(--warna-aksen);
+  --color-red-500: var(--warna-aksen);
+  --color-red-600: var(--warna-teks-utama);
+  --color-red-700: var(--warna-teks-utama);
+  --color-red-800: var(--warna-teks-utama);
+  --color-red-900: var(--warna-teks-utama);
+
+  --color-green-50: var(--bg-utama);
+  --color-green-100: var(--bg-utama);
+  --color-green-200: var(--warna-aksen);
+  --color-green-500: var(--warna-aksen);
+  --color-green-600: var(--warna-teks-utama);
+  --color-green-700: var(--warna-teks-utama);
+  --color-green-800: var(--warna-teks-utama);
+  --color-green-900: var(--warna-teks-utama);
+
+  --color-pink-50: var(--bg-utama);
+  --color-pink-100: var(--bg-utama);
+  --color-pink-200: var(--warna-aksen);
+  --color-pink-500: var(--warna-aksen);
+  --color-pink-600: var(--warna-teks-utama);
+  --color-pink-700: var(--warna-teks-utama);
+  --color-pink-800: var(--warna-teks-utama);
+  --color-pink-900: var(--warna-teks-utama);
+
+  --color-yellow-50: var(--bg-utama);
+  --color-yellow-100: var(--bg-utama);
+  --color-yellow-200: var(--warna-aksen);
+  --color-yellow-500: var(--warna-aksen);
+  --color-yellow-600: var(--warna-teks-utama);
+  --color-yellow-700: var(--warna-teks-utama);
+  --color-yellow-800: var(--warna-teks-utama);
+  --color-yellow-900: var(--warna-teks-utama);
+
+  --color-amber-50: var(--bg-utama);
+  --color-amber-100: var(--bg-utama);
+  --color-amber-200: var(--warna-aksen);
+  --color-amber-500: var(--warna-aksen);
+  --color-amber-600: var(--warna-teks-utama);
+  --color-amber-700: var(--warna-teks-utama);
+  --color-amber-800: var(--warna-teks-utama);
+  --color-amber-900: var(--warna-teks-utama);
+
+  --color-emerald-50: var(--bg-utama);
+  --color-emerald-100: var(--bg-utama);
+  --color-emerald-200: var(--warna-aksen);
+  --color-emerald-500: var(--warna-aksen);
+  --color-emerald-600: var(--warna-teks-utama);
+  --color-emerald-700: var(--warna-teks-utama);
+  --color-emerald-800: var(--warna-teks-utama);
+  --color-emerald-900: var(--warna-teks-utama);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--bg-utama, var(--background));
+  color: var(--warna-teks-utama, var(--foreground));
+  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Custom Lightbox / Modal Image styles */
+.modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 99999 !important;
+}
+
+.modal-content {
+  position: relative !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.modal-content img {
+  display: block !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  margin: auto !important;
+  object-fit: contain !important;
+}
+
+.close {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 10020 !important;
+  cursor: pointer !important;
+}
+
+/* Scrollable auto-hide scrollbar styling to prevent layout shift and hide tracks */
+.scrollable {
+  scrollbar-width: none; /* Firefox: hide by default */
+  -ms-overflow-style: none; /* IE/Edge */
+  overflow-y: hidden !important;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+.scrollable:hover {
+  overflow-y: auto !important;
+  overflow-y: overlay !important; /* Webkit overlay scrollbar on top of content */
+  scrollbar-width: thin; /* Firefox: show thin on hover */
+}
+
+.scrollable:hover::-webkit-scrollbar-thumb {
+  background: rgba(126, 230, 227, 0.35); /* Elegant tosca transparent color matching the theme */
+}
+
+.scrollable:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(126, 230, 227, 0.6);
+}
+
+body { background-color: #C8F7F5 !important; }
+.bg-main { background-color: #C8F7F5 !important; }
+.bg-navbar { background-color: #0FA8A4 !important; }
+.text-title { color: #0B6B69 !important; }
