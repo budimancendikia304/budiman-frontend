@@ -38,12 +38,21 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
         const res = await fetch(`${apiUrl}/settings`);
+        if (!res.ok) {
+          console.warn(`Failed to fetch settings, status: ${res.status}`);
+          return;
+        }
+        const contentType = res.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          console.warn("Response is not JSON");
+          return;
+        }
         const data = await res.json();
         if (data && data.site_logo) {
           setLogoUrl(data.site_logo);
         }
       } catch (err) {
-        console.error("Error fetching logo:", err);
+        console.warn("Error fetching logo (silent):", err);
       }
     };
     fetchLogo();
