@@ -70,14 +70,14 @@ function LoginForm() {
             Email Address
           </label>
           <div className="relative">
-             <input
-               type="email"
-               value={email}
-               onChange={(e) => setEmail(e.target.value)}
-               required
-               className="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:ring-4 focus:ring-tosca-500/10 focus:border-tosca-500 transition-all outline-none bg-gray-50/50"
-               placeholder="nama@gmail.com"
-             />
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-5 py-4 rounded-2xl border border-gray-200 focus:ring-4 focus:ring-tosca-500/10 focus:border-tosca-500 transition-all outline-none bg-gray-50/50"
+                placeholder="nama@gmail.com"
+              />
           </div>
         </div>
 
