@@ -3,6 +3,20 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Fallback values for homepage / default theme */
+  --bg-utama: #C8F7F5;
+  --border-halus: #7EE6E3;
+  --warna-sorotan: #2FCFC9;
+  --bg-tombol-utama: #0FA8A4;
+  --warna-teks-mutlak: #0B6B69;
+  --bg-komponen: #FFFFFF;
+  --bg-kartu-komponen: #FFFFFF;
+  --bg-lapisan-dimensi: #C8F7F5;
+  --bg-aksen-kokoh: linear-gradient(135deg, #0FA8A4 0%, #0B6B69 100%);
+  --warna-teks-utama: #0B6B69;
+  --warna-teks-redup: rgba(11, 107, 105, 0.6);
+  --warna-aksen: #2FCFC9;
 }
 
 /* Dynamic theme variables based on school unit class on body */
