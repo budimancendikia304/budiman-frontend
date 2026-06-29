@@ -14,8 +14,39 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  const [telpAdmin, setTelpAdmin] = useState("081534648183");
+  const [whatsappNumber, setWhatsappNumber] = useState("6281534648183");
   const pathname = usePathname();
   const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
+
+  // Helper to format WhatsApp number to international format starting with 62
+  const formatWhatsApp = (num: string | null) => {
+    if (!num) return "";
+    const cleanNum = num.replace(/\D/g, "");
+    if (cleanNum.startsWith("0")) {
+      return "62" + cleanNum.slice(1);
+    }
+    if (cleanNum.startsWith("62")) {
+      return cleanNum;
+    }
+    return "62" + cleanNum;
+  };
+
+  // Helper to format phone number for display
+  const formatPhoneDisplay = (num: string | null) => {
+    if (!num) return "";
+    const cleanNum = num.replace(/\D/g, "");
+    if (cleanNum.length === 12 && cleanNum.startsWith("0")) {
+      return `${cleanNum.slice(0, 4)}-${cleanNum.slice(4, 8)}-${cleanNum.slice(8)}`;
+    }
+    if (cleanNum.length === 11 && !cleanNum.startsWith("0")) {
+      return `0${cleanNum.slice(0, 3)}-${cleanNum.slice(3, 7)}-${cleanNum.slice(7)}`;
+    }
+    if (cleanNum.length === 13 && cleanNum.startsWith("62")) {
+      return `0${cleanNum.slice(2, 5)}-${cleanNum.slice(5, 9)}-${cleanNum.slice(9)}`;
+    }
+    return num;
+  };
 
   const toggleMobileDropdown = (name: string) => {
     setOpenDropdowns(prev => ({
@@ -33,8 +64,8 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
     };
     window.addEventListener("scroll", handleScroll);
     
-    // Fetch site logo
-    const fetchLogo = async () => {
+    // Fetch site settings
+    const fetchSettings = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
         const res = await fetch(`${apiUrl}/settings`);
@@ -48,17 +79,26 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
           return;
         }
         const data = await res.json();
-        if (data && data.site_logo) {
-          setLogoUrl(data.site_logo);
+        if (data) {
+          if (data.site_logo) {
+            setLogoUrl(data.site_logo);
+          }
+          const telpKey = `profil_telp_${unit}`;
+          if (data[telpKey]) {
+            setTelpAdmin(data[telpKey]);
+          }
+          if (data.whatsapp_number) {
+            setWhatsappNumber(data.whatsapp_number);
+          }
         }
       } catch (err) {
-        console.warn("Error fetching logo (silent):", err);
+        console.warn("Error fetching settings (silent):", err);
       }
     };
-    fetchLogo();
+    fetchSettings();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [unit]);
 
   useEffect(() => {
     document.body.classList.remove("theme-sd", "theme-smp");
@@ -166,7 +206,7 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
           <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
             <div className="flex items-center gap-2">
               <Phone size={14} className="text-tosca-300 shrink-0" />
-              <span className="opacity-90 select-all">081534648183</span>
+              <span className="opacity-90 select-all">{formatPhoneDisplay(telpAdmin)}</span>
             </div>
             <div className="flex items-center gap-2 hidden sm:flex">
               <Mail size={14} className="text-tosca-300 shrink-0" />
@@ -175,7 +215,7 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <a 
-              href="https://wa.me/6281534648183?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah." 
+              href={`https://wa.me/${formatWhatsApp(whatsappNumber)}?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah.`} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-tosca-300 transition-colors inline-flex items-center gap-2 hover:bg-white/10 px-2 py-1 sm:px-2.5 sm:py-1 rounded-full transition-all" 
@@ -375,7 +415,7 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
                     Login Admin
                   </Link>
                   <a 
-                    href="https://wa.me/6281534648183?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah." 
+                    href={`https://wa.me/${formatWhatsApp(whatsappNumber)}?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah.`} 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[12px] font-bold text-[var(--warna-nav-hover)]/80 hover:text-white transition-all whitespace-nowrap uppercase tracking-wider block"
@@ -528,7 +568,7 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
 
           {/* HUBUNGI SEKOLAH */}
           <a 
-            href="https://wa.me/6281534648183?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah."
+            href={`https://wa.me/${formatWhatsApp(whatsappNumber)}?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah.`}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full text-center bg-white/10 border border-white/20 text-white text-xs font-black uppercase tracking-[0.15em] rounded-xl py-3.5 hover:bg-white/20 transition-all flex items-center justify-center gap-2"
@@ -594,12 +634,12 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
               </li>
               <li className="flex items-center gap-3">
                 <a 
-                  href="https://wa.me/6281534648183?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah."
+                  href={`https://wa.me/${formatWhatsApp(whatsappNumber)}?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline transition-all"
                 >
-                  081534648183
+                  {formatPhoneDisplay(telpAdmin)}
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -616,7 +656,7 @@ export default function PublicLayout({ children, unit }: PublicLayoutProps) {
           <p className="font-bold text-[10px] uppercase tracking-widest text-white/60">© 2026 Budiman Cendikia. All Rights Reserved.</p>
           <div className="flex gap-4">
              <a 
-               href="https://wa.me/6281534648183?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah." 
+               href={`https://wa.me/${formatWhatsApp(whatsappNumber)}?text=Halo%20Admin%2C%20saya%20ingin%20bertanya%20mengenai%20info%20sekolah.`} 
                target="_blank"
                rel="noopener noreferrer"
                aria-label="WhatsApp"

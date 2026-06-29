@@ -68,6 +68,35 @@ export default function ProfilLembagaPage() {
   const params = useParams();
   const unit = (params?.unit as "sd" | "smp") || "sd";
 
+  // Helper to format WhatsApp number to international format starting with 62
+  const formatWhatsApp = (num: string | null) => {
+    if (!num) return "";
+    const cleanNum = num.replace(/\D/g, "");
+    if (cleanNum.startsWith("0")) {
+      return "62" + cleanNum.slice(1);
+    }
+    if (cleanNum.startsWith("62")) {
+      return cleanNum;
+    }
+    return "62" + cleanNum;
+  };
+
+  // Helper to format phone number for display
+  const formatPhoneDisplay = (num: string | null) => {
+    if (!num) return "";
+    const cleanNum = num.replace(/\D/g, "");
+    if (cleanNum.length === 12 && cleanNum.startsWith("0")) {
+      return `${cleanNum.slice(0, 4)}-${cleanNum.slice(4, 8)}-${cleanNum.slice(8)}`;
+    }
+    if (cleanNum.length === 11 && !cleanNum.startsWith("0")) {
+      return `0${cleanNum.slice(0, 3)}-${cleanNum.slice(3, 7)}-${cleanNum.slice(7)}`;
+    }
+    if (cleanNum.length === 13 && cleanNum.startsWith("62")) {
+      return `0${cleanNum.slice(2, 5)}-${cleanNum.slice(5, 9)}-${cleanNum.slice(9)}`;
+    }
+    return num;
+  };
+
   interface Headmaster {
     name: string;
     greeting: string;
@@ -324,7 +353,7 @@ export default function ProfilLembagaPage() {
               </div>
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10 shadow-inner">
                 <span className="text-[10px] font-black uppercase tracking-wider text-white/60 block mb-1">No. Telp Admin</span>
-                <span className="text-sm md:text-base font-black truncate block mt-1">{telpAdmin}</span>
+                <span className="text-sm md:text-base font-black truncate block mt-1">{formatPhoneDisplay(telpAdmin)}</span>
               </div>
             </div>
           </div>
@@ -745,7 +774,7 @@ export default function ProfilLembagaPage() {
                   Daftar PPDB Online
                 </Link>
                 <a 
-                  href={`https://wa.me/${ctaTelp}?text=Halo%20Admin%20${encodeURIComponent(schoolName)}%2C%20saya%20ingin%20bertanya%20mengenai%20info%20pendaftaran%20sekolah.`}
+                  href={`https://wa.me/${formatWhatsApp(ctaTelp)}?text=Halo%20Admin%20${encodeURIComponent(schoolName)}%2C%20saya%20ingin%20bertanya%20mengenai%20info%20pendaftaran%20sekolah.`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto px-8 py-4 bg-white/10 border border-white/20 text-white text-xs font-black uppercase tracking-widest rounded-full hover:bg-white/20 transition-all hover:scale-105 inline-flex items-center justify-center gap-2"
@@ -759,7 +788,7 @@ export default function ProfilLembagaPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/10 text-sm font-medium text-white/70 max-w-4xl mx-auto">
                 <div className="flex items-center justify-center gap-3">
                   <Phone size={16} className="text-white shrink-0" />
-                  <span>{ctaTelp}</span>
+                  <span>{formatPhoneDisplay(ctaTelp)}</span>
                 </div>
                 <div className="flex items-center justify-center gap-3">
                   <Mail size={16} className="text-white shrink-0" />
